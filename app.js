@@ -3,6 +3,7 @@ const content = document.querySelector('#content')
 const backdrop = document.querySelector('#backdrop')
 const progress = document.querySelector('#progress')
 const form = document.querySelector('#form')
+const del = document.querySelector('#delete')
 
 content.addEventListener('click', openCard)
 backdrop.addEventListener('click', closeModal)
@@ -29,19 +30,26 @@ function toModal(tech) {
 			${tech.description}
 		</p>
 		<hr />
-		<div>
-			<input type="checkbox" id="done" ${checked} data-type="${tech.type}"/>
-			<label for="done">Выучил</label>
-			<input type="checkbox" id="delete" ${checked} />
-			<label for="delete">Удалить</label>
+		<div class="checkboxes">
+			<div>
+				<input type="checkbox" id="done" ${checked} data-type="${tech.type}"/>
+				<label for="done">Выучил</label>
+			</div>
+			<div>
+				<input type="checkbox" id="delete" data-del="false"/>
+				<label for="delete">Удалить</label>
+			</div>
 		</div>
 	`
 }
 
 function toggleTech(e) {
+
 	const type = e.target.dataset.type
 	const tech = technologies.find(t => t.type === type)
 	tech.done = e.target.checked
+
+
 	saveState()
 	init()
 }
@@ -50,7 +58,6 @@ function openModal(html, title = APP_TITLE) {
 	document.title = title
 	modal.innerHTML = html
 	modal.classList.add('open')
-
 }
 
 function closeModal() {

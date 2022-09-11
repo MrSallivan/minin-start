@@ -204,3 +204,7 @@ body {
 	background: #fff;
 	cursor: pointer;
 }
+.checkboxes {
+	display: flex;
+	justify-content: space-between;
+}
